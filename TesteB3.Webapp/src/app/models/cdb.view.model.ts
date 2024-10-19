@@ -1,4 +1,9 @@
 export class CdbViewModel {
-  value: number = 0.0;
-  interval: number = 0.0;
+  constructor(value: number, interval: number) {
+    this.value = value;
+    this.interval = interval;
+  }
+
+  value: number;
+  interval: number;
 }

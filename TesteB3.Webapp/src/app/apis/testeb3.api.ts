@@ -8,7 +8,7 @@ import { CdbViewModel } from './../models/cdb.view.model';
   providedIn: 'root'
 })
 export class TesteB3Api {
-  url: string = 'https://localhost:44322/Calculator/cdb';
+  private url: string = 'https://localhost:44322/Calculator/cdb';
 
   constructor(private http: HttpClient) {
   }
