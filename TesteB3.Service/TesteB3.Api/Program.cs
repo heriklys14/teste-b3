@@ -16,6 +16,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICdbService, CdbService>();
 builder.Services.AddScoped<IValidator<CdbViewModel>, CdbViewModelValidator>();
 
+builder.Services.AddCors(op =>
+{
+    op.AddDefaultPolicy(pol =>
+    {
+        pol.WithOrigins("http://localhost:4200");
+        pol.AllowAnyHeader();
+        pol.WithMethods("POST");
+    }
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,5 +41,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();

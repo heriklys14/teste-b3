@@ -24,10 +24,20 @@ namespace TesteB3.Domain.Services
                 baseValue *= (1 + (CDI * TB));
             }
 
-            var result = new CdbResponseModel(baseValue);
-            result.SetNetValue(model.Interval);
+            var result = new CdbResponseModel(baseValue, CalculateNetValue(model.Interval, baseValue));
 
             return result;
+        }
+
+        private static double CalculateNetValue(int interval, double grossValue)
+        {
+            return interval switch
+            {
+                <= 6 => grossValue * 0.775,
+                <= 12 => grossValue * 0.8,
+                <= 24 => grossValue * 0.825,
+                _ => grossValue * 0.85,
+            };
         }
     }
 }
