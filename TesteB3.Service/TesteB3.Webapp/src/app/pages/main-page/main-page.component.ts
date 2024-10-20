@@ -13,6 +13,7 @@ import { CdbResponseModel } from '../../models/cdb.response.model';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-main-page',
@@ -20,7 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     MatFormFieldModule, MatInputModule, MatButtonModule,
-    MatCardModule, CurrencyMaskModule
+    MatCardModule, CurrencyMaskModule, ToolbarComponent
   ],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './main-page.component.html',
