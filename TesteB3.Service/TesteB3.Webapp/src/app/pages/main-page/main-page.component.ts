@@ -31,7 +31,7 @@ export class MainPageComponent {
   readonly value = new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]);
   valueErrorMessage = signal('');
   
-  readonly interval = new FormControl<number | null>(null, [Validators.required, Validators.min(2)]);
+  readonly interval = new FormControl<number | null>(null, [Validators.required, Validators.min(2), Validators.pattern('[0-9]*')]);
   intervalErrorMessage = signal('');
 
   resultModel: CdbResponseModel = new CdbResponseModel();
@@ -63,6 +63,8 @@ export class MainPageComponent {
   updateIntervalErrorMessage() {
     if (this.interval.hasError('required')) {
       this.intervalErrorMessage.set('Você deve preencher um intervalo');
+    } else if (this.interval.hasError('pattern')) {
+      this.intervalErrorMessage.set('O valor deve ser inteiro e positivo');
     } else if (this.interval.hasError('min')) {
       this.intervalErrorMessage.set('O valor deve ser maior que 1');
     } else {

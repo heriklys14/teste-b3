@@ -27,7 +27,8 @@
             [formControl]="interval"
             (blur)="updateIntervalErrorMessage()"
             required
-            autocomplete="off">
+            autocomplete="off"
+            min="0">
             <mat-error *ngIf="interval.invalid">{{intervalErrorMessage()}}</mat-error>
           </mat-form-field>
         </td>
