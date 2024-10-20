@@ -24,11 +24,20 @@ Exemplo de requisição:
 }
 ```
 
-Exemplo de resposta:
+Exemplo de resposta Ok (code 200):
 ```json
 {
   "grossValue": 11.01,
   "netValue": 10.81
+}
+```
+
+Exemplo de resposta BadRequest (code 400):
+```json
+{
+  "messages": [
+    "O intervalo deve ser maior que 1."
+  ]
 }
 ```
 ## Preparação do ambiente
