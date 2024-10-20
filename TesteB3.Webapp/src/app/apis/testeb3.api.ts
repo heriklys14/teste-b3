@@ -13,7 +13,11 @@ export class TesteB3Api {
   constructor(private http: HttpClient) {
   }
 
-  getAllHousingLocations(cdbViewModel: CdbViewModel): Observable<CdbResponseModel> {
-    return this.http.post<CdbResponseModel>(this.url, cdbViewModel);
+  computeCdbValues(cdbViewModel: CdbViewModel): Observable<CdbResponseModel> {
+    return this.http.post<CdbResponseModel>(this.url, cdbViewModel,
+      {
+        headers: {'x-application-id':'testeb3-webapp'}
+      }
+    );
   }
 }

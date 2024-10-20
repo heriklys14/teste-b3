@@ -64,7 +64,7 @@ export class MainPageComponent {
 
   calculate() {
     let model: CdbViewModel = new CdbViewModel(this.value.value as number, this.interval.value as number);
-    this.testeB3Api.getAllHousingLocations(model)
+    this.testeB3Api.computeCdbValues(model)
       .subscribe({
         next: (result) => this.resultModel = result,
         error: (error) => this.errors = error.messages
