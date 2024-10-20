@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TesteB3.Api\TesteB3.Api.csproj" />
     <ProjectReference Include="..\TesteB3.Domain\TesteB3.Domain.csproj" />
   </ItemGroup>
 

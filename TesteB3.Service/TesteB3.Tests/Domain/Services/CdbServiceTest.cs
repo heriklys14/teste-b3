@@ -20,7 +20,6 @@ namespace TesteB3.Tests.Domain.Services
             service = new CdbService(modelValidatorMock.Object);
         }
 
-
         [Trait("ComputeCdbValue", "Success test scenario.")]
         [InlineData(10.0, 3, 10.294443535300477, 7.97819373985787)]
         [InlineData(20.0, 9, 21.819189956487996, 17.4553519651904)]
