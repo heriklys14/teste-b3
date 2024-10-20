@@ -44,16 +44,16 @@ namespace TesteB3.Tests.Domain.Validators
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.Should().AllSatisfy(error => errorMessages.Contains(error.ErrorMessage));
+            result.Errors.Select(x => x.ErrorMessage).Should().BeEquivalentTo(errorMessages);
         }
 
         public static TheoryData<double, int, List<string>> GetData_CdbViewModelValidator_Fail()
         {
             return new TheoryData<double, int, List<string>>
             {
-                { 0, 3, [ "O valor informado deve ser maior que R$ 0,01." ] },
+                { 0.0, 3, [ "O valor informado deve ser maior que R$ 0,00." ] },
                 { 1.0, 1, [ "O intervalo informado deve ser maior que 1 (um)." ] },
-                { 0, 0, [ "O valor informado deve ser maior que R$ 0,01.", "O intervalo informado deve ser maior que 1 (um)." ] }
+                { 0.0, 0, [ "O valor informado deve ser maior que R$ 0,00.", "O intervalo informado deve ser maior que 1 (um)." ] }
             };
         }
     }
