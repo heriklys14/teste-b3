@@ -10,6 +10,7 @@ import {MatCardModule} from '@angular/material/card';
 import { TesteB3Api } from './../../apis/testeb3.api';
 import { CdbViewModel } from '../../models/cdb.view.model';
 import { CdbResponseModel } from '../../models/cdb.response.model';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
   selector: 'app-main-page',
@@ -17,7 +18,8 @@ import { CdbResponseModel } from '../../models/cdb.response.model';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     MatFormFieldModule, MatInputModule, MatButtonModule,
-    MatCardModule],
+    MatCardModule, CurrencyMaskModule
+  ],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
@@ -63,7 +65,7 @@ export class MainPageComponent {
   }
 
   calculate() {
-    let model: CdbViewModel = new CdbViewModel(this.value.value as number, this.interval.value as number);
+    let model: CdbViewModel = new CdbViewModel(this.value.value!, +this.interval.value!);
     this.testeB3Api.computeCdbValues(model)
       .subscribe({
         next: (result) => this.resultModel = result,

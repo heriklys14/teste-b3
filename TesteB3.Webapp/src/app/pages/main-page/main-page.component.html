@@ -1,34 +1,34 @@
-<p>
-  <mat-form-field appearance="fill">
-    <mat-label>Preencha o valor</mat-label>
-    <input 
-      matInput
-      placeholder="mínimo R$ 0,01"
-      [formControl]="value"
-      (blur)="updateValueErrorMessage()"
-      required
-      autocomplete="off">
-      <mat-error *ngIf="value.invalid">{{valueErrorMessage()}}</mat-error>
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="fill">
-    <mat-label>Preencha o intervalo</mat-label>
-    <input
-      matInput
-      placeholder="mínimo 2 meses"
-      [formControl]="interval"
-      (blur)="updateIntervalErrorMessage()"
-      required
-      autocomplete="off">
-      <mat-error *ngIf="interval.invalid">{{intervalErrorMessage()}}</mat-error>
-  </mat-form-field>
-</p>
-<p>
-  <button mat-raised-button [disabled]="value.invalid || interval.invalid" (click)="calculate()">Calcular</button>
-  <button mat-button (click)="reset()">Limpar</button>
-</p>
-<p>
+<div class="base-layout">
+  <form class="example-form">
+    <table cellspacing="0"><tr>
+      <td><mat-form-field appearance="fill">
+        <mat-label>Preencha o valor</mat-label>
+        <input
+          currencyMask
+          matInput
+          placeholder="mínimo R$ 0,01"
+          [formControl]="value"
+          (blur)="updateValueErrorMessage()"
+          required
+          autocomplete="off">
+          <mat-error *ngIf="value.invalid">{{valueErrorMessage()}}</mat-error>
+      </mat-form-field></td>
+      <td><mat-form-field appearance="fill">
+        <mat-label>Preencha o intervalo</mat-label>
+        <input
+          matInput
+          placeholder="mínimo 2 meses"
+          [formControl]="interval"
+          (blur)="updateIntervalErrorMessage()"
+          required
+          autocomplete="off">
+          <mat-error *ngIf="interval.invalid">{{intervalErrorMessage()}}</mat-error>
+      </mat-form-field></td></tr>
+      <tr><td><button id="btn-calculate" mat-raised-button [disabled]="value.invalid || interval.invalid" (click)="calculate()">Calcular</button></td>
+      <td><button mat-button (click)="reset()">Limpar</button></td></tr>
+    </table>
+  </form>
+
   <mat-card appearance="outlined" class="outer-card">
     <mat-card-header>
       <mat-card-title> Rendimento </mat-card-title>
@@ -38,9 +38,9 @@
         <mat-card-header>
           <mat-card-subtitle> Valor bruto </mat-card-subtitle>
         </mat-card-header>
-       <mat-card-content>
-        R$ {{resultModel.grossValue}}
-       </mat-card-content>
+        <mat-card-content>
+        {{ resultModel.grossValue | currency:'BRL' }}
+        </mat-card-content>
       </mat-card>
       <br>
       <mat-card appearance="outlined" class="inner-card">
@@ -48,9 +48,9 @@
           <mat-card-subtitle> Valor Líquido </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-        R$ {{resultModel.netValue}}
-       </mat-card-content>
+        {{ resultModel.netValue | currency:'BRL' }}
+        </mat-card-content>
       </mat-card>
     </mat-card-content>
   </mat-card>
-</p>
+</div>

@@ -1,3 +1,15 @@
+.base-layout {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
 .outer-card {
 max-width: 600px;
   align-self: center;
@@ -5,4 +17,16 @@ max-width: 600px;
 
 .inner-card {
   align-items: center;
+}
+
+#btn-calculate {
+  align-content: end;
+}
+
+table {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
 }
