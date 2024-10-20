@@ -11,6 +11,8 @@ import { TesteB3Api } from './../../apis/testeb3.api';
 import { CdbViewModel } from '../../models/cdb.view.model';
 import { CdbResponseModel } from '../../models/cdb.response.model';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main-page',
@@ -34,7 +36,10 @@ export class MainPageComponent {
   resultModel: CdbResponseModel = new CdbResponseModel();
   errors: Array<string> = [];
 
-  constructor(private testeB3Api: TesteB3Api) {
+  constructor(
+    private testeB3Api: TesteB3Api,
+    private snackBar: MatSnackBar
+  ) {
     merge(this.value.statusChanges, this.value.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateValueErrorMessage());
@@ -65,11 +70,11 @@ export class MainPageComponent {
   }
 
   calculate() {
-    let model: CdbViewModel = new CdbViewModel(this.value.value!, +this.interval.value!);
+    let model: CdbViewModel = new CdbViewModel(this.value.value!, this.interval.value!);
     this.testeB3Api.computeCdbValues(model)
       .subscribe({
         next: (result) => this.resultModel = result,
-        error: (error) => this.errors = error.messages
+        error: (errResp: HttpErrorResponse) => this.handleError(errResp.error.messages)
       })
   }
 
@@ -77,5 +82,11 @@ export class MainPageComponent {
     this.value.reset();
     this.interval.reset();
     this.resultModel = new CdbResponseModel();
+  }
+
+  private handleError(messages: Array<string>){
+    this.resultModel = new CdbResponseModel();
+    let snackText = messages?.join(' ') ?? 'Falha ao consultar serviço.'
+    this.snackBar.open(snackText, 'Fechar', {duration: 2500});
   }
 }
