@@ -28,7 +28,7 @@ Exemplo de resposta:
 ```json
 {
   "grossValue": 11.01,
-  "netValue": 8.81
+  "netValue": 10.81
 }
 ```
 ## Preparação do ambiente
