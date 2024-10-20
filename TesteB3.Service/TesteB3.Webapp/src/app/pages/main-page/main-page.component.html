@@ -1,33 +1,49 @@
 <div class="base-layout">
-  <form class="example-form">
-    <table cellspacing="0"><tr>
-      <td><mat-form-field appearance="fill">
-        <mat-label>Preencha o valor</mat-label>
-        <input
-          currencyMask
-          matInput
-          placeholder="mínimo R$ 0,01"
-          [formControl]="value"
-          (blur)="updateValueErrorMessage()"
-          required
-          autocomplete="off">
-          <mat-error *ngIf="value.invalid">{{valueErrorMessage()}}</mat-error>
-      </mat-form-field></td>
-      <td><mat-form-field appearance="fill">
-        <mat-label>Preencha o intervalo</mat-label>
-        <input
-          type="number"
-          matInput
-          placeholder="mínimo 2 meses"
-          [formControl]="interval"
-          (blur)="updateIntervalErrorMessage()"
-          required
-          autocomplete="off">
-          <mat-error *ngIf="interval.invalid">{{intervalErrorMessage()}}</mat-error>
-      </mat-form-field></td></tr>
-      <tr><td><button id="btn-calculate" mat-raised-button [disabled]="value.invalid || interval.invalid" (click)="calculate()">Calcular</button></td>
-      <td><button mat-button (click)="reset()">Limpar</button></td></tr>
+  <form class="form">
+    <table cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field appearance="fill">
+          <mat-label>Preencha o valor</mat-label>
+          <input
+            currencyMask
+            matInput
+            placeholder="mínimo R$ 0,01"
+            [formControl]="value"
+            (blur)="updateValueErrorMessage()"
+            required
+            autocomplete="off">
+            <mat-error *ngIf="value.invalid">{{valueErrorMessage()}}</mat-error>
+        </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="fill">
+          <mat-label>Preencha o intervalo</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="mínimo 2 meses"
+            [formControl]="interval"
+            (blur)="updateIntervalErrorMessage()"
+            required
+            autocomplete="off">
+            <mat-error *ngIf="interval.invalid">{{intervalErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
     </table>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="value.invalid || interval.invalid"
+        (click)="calculate()">Calcular
+      </button>
+      <button
+        mat-raised-button
+        (click)="reset()">Limpar
+      </button>
+    </div>
   </form>
 
   <mat-card appearance="outlined" class="outer-card">

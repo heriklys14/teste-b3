@@ -4,29 +4,40 @@
   align-items: center;
 }
 
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.outer-card {
-max-width: 600px;
-  align-self: center;
-}
-
-.inner-card {
-  align-items: center;
-}
-
-#btn-calculate {
-  align-content: end;
+.form {
+  width: 600px;
+  margin: 16px 0px 16px 0px;
 }
 
 table {
   width: 100%;
 }
 
+td {
+  padding-right: 8px;
+}
+
 mat-form-field {
   width: 100%;
+  margin-bottom: 8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  width: 30%;
+  margin: 4px;
+}
+
+.outer-card {
+  max-width: 600px;
+  align-self: center;
+}
+
+.inner-card {
+  align-items: center;
 }
