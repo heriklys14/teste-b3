@@ -17,26 +17,31 @@ namespace TesteB3.Domain.Services
             if (!validationResult.IsValid)
                 throw new InvalidOperationException(string.Join(';', validationResult.Errors.Select(x => x.ErrorMessage)));
 
-            var baseValue = model.Value;
+            var grossValue = model.Value;
 
             for (int i = 1; i <= model.Interval; i++)
             {
-                baseValue *= (1 + (CDI * TB));
+                grossValue *= (1 + (CDI * TB));
             }
 
-            var result = new CdbResponseModel(baseValue, CalculateNetValue(model.Interval, baseValue));
+            var result = new CdbResponseModel(grossValue, CalculateNetValue(model, grossValue));
 
             return result;
         }
 
-        private static double CalculateNetValue(int interval, double grossValue)
+        private static double CalculateNetValue(CdbViewModel model, double grossValue)
+        {
+            return model.Value + ((grossValue - model.Value) * GetTax(model.Interval));
+        }
+
+        private static double GetTax(int interval)
         {
             return interval switch
             {
-                <= 6 => grossValue * 0.775,
-                <= 12 => grossValue * 0.8,
-                <= 24 => grossValue * 0.825,
-                _ => grossValue * 0.85,
+                <= 6 => 0.775,
+                <= 12 => 0.8,
+                <= 24 => 0.825,
+                _ => 0.85,
             };
         }
     }

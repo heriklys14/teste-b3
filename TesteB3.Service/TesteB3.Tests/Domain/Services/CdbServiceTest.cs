@@ -21,10 +21,10 @@ namespace TesteB3.Tests.Domain.Services
         }
 
         [Trait("ComputeCdbValue", "Success test scenario.")]
-        [InlineData(10.0, 3, 10.294443535300477, 7.97819373985787)]
-        [InlineData(20.0, 9, 21.819189956487996, 17.4553519651904)]
-        [InlineData(30.0, 18, 35.705778776798027, 29.457267490858371)]
-        [InlineData(40.0, 30, 53.467361108018714, 45.447256941815908)]
+        [InlineData(10.0, 3, 10.294443535300477, 10.22819373985787)]
+        [InlineData(20.0, 9, 21.819189956487996, 21.455351965190395)]
+        [InlineData(30.0, 18, 35.705778776798027, 34.707267490858371)]
+        [InlineData(40.0, 30, 53.467361108018714, 51.447256941815908)]
         [Theory]
         public void ComputeCdbValue_Success(double value, int interval, double grossValue, double netvalue)
         {
@@ -33,14 +33,14 @@ namespace TesteB3.Tests.Domain.Services
             var expectedResult = new CdbResponseModel(grossValue, netvalue);
             var validationResult = new ValidationResult();
 
-            modelValidatorMock.Setup(m => m.Validate(It.Is<CdbViewModel>(x => x.Value == viewModel.Value && x.Interval == viewModel.Interval))).Returns(validationResult);
+            modelValidatorMock.Setup(m => m.Validate(viewModel)).Returns(validationResult);
 
             //Act
             var result = service.ComputeCdbValue(viewModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedResult);
-            modelValidatorMock.Verify(m => m.Validate(It.Is<CdbViewModel>(x => x.Value == viewModel.Value && x.Interval == viewModel.Interval)), Times.Once);
+            modelValidatorMock.Verify(m => m.Validate(viewModel), Times.Once);
         }
 
         [Trait("ComputeCdbValue", "Fail test scenario.")]
@@ -52,7 +52,7 @@ namespace TesteB3.Tests.Domain.Services
             var viewModel = new CdbViewModel { Value = 10.0, Interval = 3 };
             var validationResult = new ValidationResult(validationFailures);
 
-            modelValidatorMock.Setup(m => m.Validate(It.Is<CdbViewModel>(x => x.Value == viewModel.Value && x.Interval == viewModel.Interval))).Returns(validationResult);
+            modelValidatorMock.Setup(m => m.Validate(viewModel)).Returns(validationResult);
 
             //Act
             var exception = Assert.Throws<InvalidOperationException>(() => service.ComputeCdbValue(viewModel));
@@ -60,7 +60,7 @@ namespace TesteB3.Tests.Domain.Services
 
             //Assert
             messages.Should().Contain(validationFailures.Select(x => x.ErrorMessage));
-            modelValidatorMock.Verify(m => m.Validate(It.Is<CdbViewModel>(x => x.Value == viewModel.Value && x.Interval == viewModel.Interval)), Times.Once);
+            modelValidatorMock.Verify(m => m.Validate(viewModel), Times.Once);
         }
 
         public static TheoryData<List<ValidationFailure>> GetData_ComputeCdbValue_Fail()
